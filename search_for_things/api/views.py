@@ -101,7 +101,7 @@ class PicturePersonAPI(mixins.ListModelMixin,
 class UserAPI(APIView):
 
     def get(self, request, *args, **kwargs):
-        user = User.objects.filter(username__icontains=kwargs.get('user'))
+        user = User.objects.filter(username=kwargs.get('user'))
         serializer = UserSerializer(user, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
@@ -109,7 +109,7 @@ class UserAPI(APIView):
 class SearchAPI(APIView):
 
     def get(self, request, *args, **kwargs):
-        search = StolenItem.objects.filter(vin__icontains=kwargs.get('search'))
+        search = StolenItem.objects.filter(vin=kwargs.get('search'))
         serializer = StolenSerializer(search,  many=True)
         print(serializer)
         return Response(serializer.data, status=status.HTTP_200_OK)
